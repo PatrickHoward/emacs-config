@@ -18,11 +18,22 @@
 (if (eq system-type 'darwin)
     (menu-bar-mode 0))
 
+
+(defun get-system-slash ()
+  "Returns the system-specific slash for the local system"
+  (if (eq system-type 'windows-nt)
+      '"\\"
+      '"/"
+    )
+  )
+
 (if (eq system-type 'darwin)
     (setq shell-file-name "/bin/zsh")
   (if (eq system-type 'windows-nt)
       (setq shell-file-name "C:/Program Files/nu/bin/nu.exe"))
   )
+
+(setq default-directory (concat (getenv "HOME") (get-system-slash)))
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
