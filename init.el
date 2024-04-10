@@ -38,7 +38,7 @@
 (setq inferior-lisp-program "sbcl")
 
 (setq auto-save-file-name-transforms
-          `((".*" ,(concat user-emacs-directory "auto-save/") t)))
+      `((".*" ,(concat user-emacs-directory "auto-save/") t)))
 
 ;;(setq default-directory (concat (getenv "HOME") (get-system-slash)))
 (setq default-directory "~/")
