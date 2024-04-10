@@ -3,8 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(misterioso))
- '(inhibit-startup-screen t))
+ '(custom-enabled-themes '(misterioso)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -12,10 +11,14 @@
  ;; If there is more than one, they won't work right.
  )
 
+(setq inhibit-startup-screen t)
+
 (set-face-attribute 'default nil :height 105)
 
+;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
-(menu-bar-mode (not (eq system-type 'darwin)))
+(let ((is-mac (or (eq system-type 'darwin) 0)))
+  (menu-bar-mode is-mac))
 
 ;; TODO: Move this out into its own file when necessary.
 (defun get-system-slash ()
@@ -33,6 +36,9 @@
   )
 
 (setq inferior-lisp-program "sbcl")
+
+(setq auto-save-file-name-transforms
+          `((".*" ,(concat user-emacs-directory "auto-save/") t)))
 
 ;;(setq default-directory (concat (getenv "HOME") (get-system-slash)))
 (setq default-directory "~/")
