@@ -29,13 +29,11 @@
   (menu-bar-mode is-mac))
 
 ;; TODO: Move this out into its own file when necessary.
-(defun get-system-slash ()
+(defun ge-system-slash ()
   "Returns the system-specific slash for the local system"
   (if (eq system-type 'windows-nt)
       '"\\"
-      '"/"
-    )
-  )
+      '"/"))
 
 (if (eq system-type 'darwin)
     (setq shell-file-name "/bin/zsh")
@@ -44,8 +42,11 @@
 
 (setq inferior-lisp-program "sbcl")
 
-(setq auto-save-file-name-transforms 
-  `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,(concat user-emacs-directory "auto-save/" "\\2") t)))
+(let ((auto-save-dir (concat user-emacs-directory "auto-save/"))) 
+  (if (not (file-directory-p auto-save-dir))
+      (make-directory auto-save-dir t))
+  (setq auto-save-file-name-transforms
+	`(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" , (concat auto-save-dir "\\2") t))))
 
 ;;(setq default-directory (concat (getenv "HOME") (get-system-slash)))
 (setq default-directory "~/")
@@ -54,3 +55,4 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+(load "./setup.el")
