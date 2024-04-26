@@ -10,6 +10,11 @@
     (package-install 'treemacs)
     (package-install 'clang-format)
     (package-install 'rust-mode)
+    (package-install 'cloc)
+    (package-install 'groovy-mode)
+    (package-install 'obsidian)
+    (package-install 'pandoc)
+    (package-install 'ue)
     (message "Setup Complete! Enjoy your EMACS! :)")
     ))
 

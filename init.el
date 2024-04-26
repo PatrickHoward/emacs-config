@@ -59,8 +59,14 @@
 (package-initialize)
 
 ;; Configure Treemacs
+(require 'treemacs)
 (setq treemacs-python-executable (executable-find "python"))
 (add-hook 'emacs-startup-hook 'treemacs)
+
+;; Configure ue-mode
+(require 'ue)
+(define-key ue-mode-map (kbd "C-c u") 'ue-command-map)
+(ue-global-mode +1)
 
 ;; Configure Org Mode
 (setq org-support-shift-select t)
