@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.nnnnnnnnnnn
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(misterioso)))
+ '(custom-enabled-themes '(deeper-blue)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -15,13 +15,14 @@
 (setq inhibit-startup-screen t)
 
 ;; set transparency
-(set-frame-parameter nil 'alpha-background 98)
-(add-to-list 'default-frame-alist '(alpha-background . 98))
+;;(set-frame-parameter (selected-frame) 'alpha-background 98)
+;;(add-to-list 'default-frame-alist '(alpha-background . 98))
 
-;;(set-frame-parameter (selected-frame) 'alpha '(90 100))
-;;(add-to-list 'default-frame-alist '(alpha 90 100))
+(add-to-list 'default-frame-alist '(width  . 150))
+(add-to-list 'default-frame-alist '(height . 40))
 
 (set-face-attribute 'default nil :height 125)
+
 
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
@@ -48,11 +49,11 @@
   (setq auto-save-file-name-transforms
 	`(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" , (concat auto-save-dir "\\2") t))))
 
-;;(setq default-directory (concat (getenv "HOME") (get-system-slash)))
 (setq default-directory "~/")
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(load "./setup.el")
+(setq treemacs-python-executable (executable-find "python"))
+(treemacs)
