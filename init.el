@@ -18,8 +18,8 @@
 ;;(set-frame-parameter (selected-frame) 'alpha-background 98)
 ;;(add-to-list 'default-frame-alist '(alpha-background . 98))
 
-(add-to-list 'default-frame-alist '(width  . 150))
-(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(width  . 125))
+(add-to-list 'default-frame-alist '(height . 50))
 
 (set-face-attribute 'default nil :height 125)
 
@@ -37,7 +37,10 @@
       '"/"))
 
 (if (eq system-type 'darwin)
-    (setq shell-file-name "/bin/zsh")
+    (progn
+      (setq shell-file-name "/bin/zsh")
+      (setq mac-command-modifier 'meta)
+      (setq mac-option-modifier 'super))
   (if (eq system-type 'windows-nt)
       (setq shell-file-name "C:/Program Files/nu/bin/nu.exe")))
 
@@ -55,5 +58,16 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+;; Configure Treemacs
 (setq treemacs-python-executable (executable-find "python"))
-(treemacs)
+(add-hook 'emacs-startup-hook 'treemacs)
+
+;; Configure Org Mode
+(setq org-support-shift-select t)
+(setq org-directory
+      (if (eq system-type 'darwin)
+	  "~/Documents/org"
+	(if (eq system-type 'windows-nt)
+	    "~/iCloudDrive/Documents/org")))
+
+(message (concat "Hey, " (user-login-name) "! Get ready to coooode!"))
