@@ -44,6 +44,16 @@
 
 (setq default-directory "~/")
 
+;; Disable beeping, thanks to https://github.com/sban/emacs
+(setq visible-bell nil
+      ring-bell-function 'flash-mode-line)
+
+(defun flash-mode-line ()
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+
+(winner-mode 1)
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
