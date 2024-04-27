@@ -18,7 +18,7 @@
 ;;(set-frame-parameter (selected-frame) 'alpha-background 98)
 ;;(add-to-list 'default-frame-alist '(alpha-background . 98))
 
-(add-to-list 'default-frame-alist '(width  . 125))
+(add-to-list 'default-frame-alist '(width  . 155))
 (add-to-list 'default-frame-alist '(height . 50))
 
 (set-face-attribute 'default nil :height 125)
@@ -75,5 +75,13 @@
 	  "~/Documents/org"
 	(if (eq system-type 'windows-nt)
 	    "~/iCloudDrive/Documents/org")))
+
+(setq org-startup-truncated nil)
+
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 5)
+(setq recentf-max-saved-items 5)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 (message (concat "Hey, " (user-login-name) "! Get ready to coooode!"))
