@@ -15,6 +15,8 @@
     (package-install 'obsidian)
     (package-install 'pandoc)
     (package-install 'ue)
+    (package-install 'spacious-mode)
+    (package-install 'org-modern)
     (message "Setup Complete! Enjoy your EMACS! :)")
     ))
 

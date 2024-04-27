@@ -14,27 +14,16 @@
 (tab-bar-mode t)
 (setq inhibit-startup-screen t)
 
-;; set transparency
-;;(set-frame-parameter (selected-frame) 'alpha-background 98)
-;;(add-to-list 'default-frame-alist '(alpha-background . 98))
-
 (add-to-list 'default-frame-alist '(width  . 155))
 (add-to-list 'default-frame-alist '(height . 50))
 
 (set-face-attribute 'default nil :height 125)
-
+(set-face-attribute 'mode-line-buffer-id nil :foreground "white")
 
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
 (let ((is-mac (or (eq system-type 'darwin) 0)))
   (menu-bar-mode is-mac))
-
-;; TODO: Move this out into its own file when necessary.
-(defun ge-system-slash ()
-  "Returns the system-specific slash for the local system"
-  (if (eq system-type 'windows-nt)
-      '"\\"
-      '"/"))
 
 (if (eq system-type 'darwin)
     (progn
@@ -42,6 +31,7 @@
       (setq mac-command-modifier 'meta)
       (setq mac-option-modifier 'super))
   (if (eq system-type 'windows-nt)
+
       (setq shell-file-name "C:/Program Files/nu/bin/nu.exe")))
 
 (setq inferior-lisp-program "sbcl")
@@ -60,13 +50,15 @@
 
 ;; Configure Treemacs
 (require 'treemacs)
-(setq treemacs-python-executable (executable-find "python"))
 (add-hook 'emacs-startup-hook 'treemacs)
 
 ;; Configure ue-mode
 (require 'ue)
 (define-key ue-mode-map (kbd "C-c u") 'ue-command-map)
 (ue-global-mode +1)
+
+(require 'spacious-padding)
+(add-hook 'emacs-startup-hook 'spacious-padding-mode)
 
 ;; Configure Org Mode
 (setq org-support-shift-select t)
@@ -78,10 +70,13 @@
 
 (setq org-startup-truncated nil)
 
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 5)
 (setq recentf-max-saved-items 5)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
-(message (concat "Hey, " (user-login-name) "! Get ready to coooode!"))
+(message "Initalization Complete!")
