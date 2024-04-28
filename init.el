@@ -12,6 +12,7 @@
  )
 
 (tab-bar-mode t)
+(scroll-bar-mode 0)
 (setq inhibit-startup-screen t)
 
 (add-to-list 'default-frame-alist '(width  . 155))
@@ -52,7 +53,7 @@
   (invert-face 'mode-line)
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
-(winner-mode 1)
+(winner-mode t)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -81,6 +82,7 @@
 (setq org-startup-truncated nil)
 
 (add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-mode-hook #'auto-fill-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
 (require 'recentf)
