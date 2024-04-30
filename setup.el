@@ -17,6 +17,12 @@
     (package-install 'ue)
     (package-install 'spacious-padding)
     (package-install 'org-modern)
+    (package-install 'company)
+    (package-install 'dashboard)
+    (package-install 'nerd-icons)
+    (package-install 'ox-pandoc)
+    (package-install 'company-irony)
+    (package-install 'slime-company)
     (message "Setup Complete! Enjoy your EMACS! :)")
     ))
 
@@ -30,3 +36,5 @@
   (load "init.el")
   (install-config-packages)
   (compile-init-file))
+
+  

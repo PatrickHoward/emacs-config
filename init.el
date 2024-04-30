@@ -71,6 +71,15 @@
 (require 'spacious-padding)
 (add-hook 'emacs-startup-hook 'spacious-padding-mode)
 
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+(setq dashboard-banner-logo-title "EMACS!")
+(setq dashboard-startup-banner 'logo)
+(setq dashboard-center-content t)
+(setq dashboard-vertically-center-content t)
+(setq dashboard-display-icons-p t)
+(setq dashboard-icon-type 'nerd-icons) 
+
 ;; Configure Org Mode
 (setq org-support-shift-select t)
 (setq org-directory
