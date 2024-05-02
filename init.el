@@ -62,6 +62,7 @@
 ;; Configure Treemacs
 (require 'treemacs)
 (add-hook 'emacs-startup-hook 'treemacs)
+(setq treemacs-show-hidden-files nil)
 
 ;; Configure ue-mode
 (require 'ue)
@@ -93,6 +94,7 @@
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-mode-hook #'auto-fill-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+(setq org-agenda-include-diary t)
 
 (require 'recentf)
 (recentf-mode 1)
