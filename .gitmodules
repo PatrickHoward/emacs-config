@@ -1,0 +1,3 @@
+[submodule "helm-slack"]
+	path = addl-packages/helm-slack
+	url = git@github.com:yuya373/helm-slack.git

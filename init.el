@@ -21,6 +21,8 @@
 (set-face-attribute 'default nil :height 125)
 (set-face-attribute 'mode-line-buffer-id nil :foreground "white")
 
+(set-default 'truncate-lines nil)
+
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
 (let ((is-mac (or (eq system-type 'darwin) 0)))
@@ -68,6 +70,14 @@
 (require 'ue)
 (define-key ue-mode-map (kbd "C-c u") 'ue-command-map)
 (ue-global-mode +1)
+
+(require 'slack)
+(setq slack-buffer-emojify t)
+(setq slack-prefer-current-team t)
+(load "~/Repos/emacs-config/addl-packages/helm-slack/helm-slack.elc")
+
+(require 'alert)
+(setq alert-default-style 'notifier)
 
 (require 'spacious-padding)
 (add-hook 'emacs-startup-hook 'spacious-padding-mode)
