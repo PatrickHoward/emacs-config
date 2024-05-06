@@ -100,6 +100,10 @@
 	    "~/iCloudDrive/Documents/org")))
 
 (setq org-startup-truncated nil)
+(setq org-hide-emphasis-markers t)
+(setq org-pretty-entities t)
+
+(setq org-insert-heading-respect-content t)
 
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-mode-hook #'auto-fill-mode)
