@@ -22,6 +22,7 @@
 (set-face-attribute 'mode-line-buffer-id nil :foreground "white")
 
 (set-default 'truncate-lines nil)
+(setq-default tab-width 4)
 
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
