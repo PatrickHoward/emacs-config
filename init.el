@@ -71,11 +71,6 @@
 (define-key ue-mode-map (kbd "C-c u") 'ue-command-map)
 (ue-global-mode +1)
 
-(require 'slack)
-(setq slack-buffer-emojify t)
-(setq slack-prefer-current-team t)
-(load "~/Repos/emacs-config/addl-packages/helm-slack/helm-slack.elc")
-
 (require 'alert)
 (setq alert-default-style 'notifier)
 
@@ -89,7 +84,8 @@
 (setq dashboard-center-content t)
 (setq dashboard-vertically-center-content t)
 (setq dashboard-display-icons-p t)
-(setq dashboard-icon-type 'nerd-icons) 
+(setq dashboard-icon-type 'nerd-icons)
+
 
 ;; Configure Org Mode
 (setq org-support-shift-select t)
@@ -117,3 +113,11 @@
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 (message "Initalization Complete!")
+
+(defun kill-selected-text ()
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'kill-region)
+    (call-interactively 'kill-line)))
+
+(global-set-key (kbd "C-k") 'kill-selected-text)

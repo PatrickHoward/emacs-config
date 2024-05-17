@@ -23,10 +23,8 @@
     (package-install 'ox-pandoc)
     (package-install 'company-irony)
     (package-install 'slime-company)
-    (package-install 'slack)
-    (package-install 'helm)
     (package-install 'rebecca-theme)
-    (byte-compile-file "~/Repos/emacs-config/addl-packages/helm-slack/helm-slack.el")
+    (package-install 'org-tree-slide)B
     (message "Setup Complete! Enjoy your EMACS! :)")
     ))
 
