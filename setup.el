@@ -28,15 +28,9 @@
     (message "Setup Complete! Enjoy your EMACS! :)")
     ))
 
-(defun compile-init-file ()
-  (interactive)
-  (byte-compile-file "~/Repos/emacs-config/init.el")
-  (load "init.elc"))
-
 (defun first-time-setup ()
   (interactive)
   (load "init.el")
-  (install-config-packages)
-  (compile-init-file))
+  (install-config-packages))
 
   
