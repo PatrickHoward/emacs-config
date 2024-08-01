@@ -28,9 +28,4 @@
     (message "Setup Complete! Enjoy your EMACS! :)")
     ))
 
-(defun first-time-setup ()
-  (interactive)
-  (load "init.el")
-  (install-config-packages))
-
   
