@@ -13,7 +13,7 @@
 
 (tab-bar-mode t)
 (scroll-bar-mode 0)
-(setq inhibit-startup-screen t)
+(setq inhibit-startup-screen t)1
 
 (add-to-list 'default-frame-alist '(width  . 155))
 (add-to-list 'default-frame-alist '(height . 50))
@@ -26,6 +26,7 @@
 
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
+(menu-bar-mode 0)
 
 (if (eq system-type 'darwin)
     (progn
@@ -91,8 +92,7 @@
 
 (use-package org
   :defer 20
-  :hook ((org-mode . #'org-modern-mode)
-		 (org-mode . #'auto-fill-mode)
+  :hook ((org-mode . #'auto-fill-mode)
 		 (org-agenda-finalize . #'org-modern-agenda))
   :config
   (setq org-support-shift-select t)
@@ -106,6 +106,8 @@
   (setq org-pretty-entities t)
   (setq org-insert-heading-respect-content t)
   (setq org-agenda-include-diary t))
+
+(add-hook 'org-mode-hook 'org-modern-mode)
 
 (use-package recentf
   :defer t
