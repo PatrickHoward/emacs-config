@@ -1,19 +1,20 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.nnnnnnnnnnn
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(rebecca)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-tokyo-night t)
+  
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  (setq doom-themes-treemacs-theme "doom-one") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 (tab-bar-mode t)
 (scroll-bar-mode 0)
-(setq inhibit-startup-screen t)1
 
 (add-to-list 'default-frame-alist '(width  . 155))
 (add-to-list 'default-frame-alist '(height . 50))
@@ -39,13 +40,6 @@
 
 (setq inferior-lisp-program "sbcl")
 
-;;(let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
-;;    (if (not (file-directory-p auto-save-dir))
-;;      (make-directory auto-save-dir t))
-;;  (setq auto-save-file-name-transforms
-;;  `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" , (concat auto-save-dir "\\2") t)))
-;;  (setq backup-directory-alist `(("." . ,(concat auto-save-dir "backups")))))
-
 (setq default-directory "~/")
 
 ;; Disable beeping, thanks to https://github.com/sban/emacs
@@ -62,12 +56,29 @@
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize))
 
-;; Configure Treemacs
+(use-package nerd-icons
+  :custom 
+ (nerd-icons-font-family "Symbols Nerd Font Mono"))
+
 (use-package treemacs
   :defer t
-  :hook (emacs-startup . treemacs)
+  :hook
+  ((after-init . treemacs)(treemacs . treemacs-follow-project-mode))
   :config
   (setq treemacs-show-hidden-files nil))
+
+(use-package treemacs-nerd-icons
+  :config
+  (treemacs-load-theme "nerd-icons"))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config (column-number-mode 1)
+  :custom
+  (doom-modeline-height 30)
+  (doom-modeline-window-width-limit nil)
+  (doom-modeline-battery t))
 
 (use-package alert
   :defer 10
@@ -79,16 +90,15 @@
   :hook (emacs-startup . #'spacious-padding))
 
 (use-package dashboard
-  :defer t
-  :init
-  (dashboard-setup-startup-hook)
+  :ensure t
   :config
   (setq dashboard-banner-logo-title "EMACS!")
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-center-content t)
   (setq dashboard-vertically-center-content t)
   (setq dashboard-display-icons-p t)
-  (setq dashboard-icon-type 'nerd-icons))
+  (setq dashboard-icon-type 'nerd-icons)
+  (dashboard-setup-startup-hook))
 
 (use-package org
   :defer 20
@@ -107,7 +117,7 @@
   (setq org-insert-heading-respect-content t)
   (setq org-agenda-include-diary t))
 
-(add-hook 'org-mode-hook 'org-modern-mode)
+(with-eval-after-load 'org (global-org-modern-mode))
 
 (use-package recentf
   :defer t
@@ -125,3 +135,6 @@
     (call-interactively 'kill-line)))
 
 (global-set-key (kbd "C-k") 'kill-selected-text)
+
+(add-hook 'after-init-hook 'global-company-mode)
+

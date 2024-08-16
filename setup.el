@@ -20,12 +20,16 @@
     (package-install 'company)
     (package-install 'dashboard)
     (package-install 'nerd-icons)
+	(nerd-icons-install-fonts)
     (package-install 'ox-pandoc)
     (package-install 'company-irony)
     (package-install 'slime-company)
     (package-install 'rebecca-theme)
-    (package-install 'org-tree-slide)B
-    (message "Setup Complete! Enjoy your EMACS! :)")
+    (package-install 'org-tree-slide)
+    (package-install 'doom-modeline)
+    (package-install 'doom-themes)
+    (package-install 'all-the-icons)
+	(message "Installation Complete")
     ))
 
   
