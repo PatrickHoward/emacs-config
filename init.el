@@ -42,6 +42,16 @@
 
 (setq default-directory "~/")
 
+;; Copypasta'd from https://emacs.stackexchange.com/questions/17210/how-to-place-all-auto-save-files-in-a-directory
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves/"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+
 ;; Disable beeping, thanks to https://github.com/sban/emacs
 (setq visible-bell nil
       ring-bell-function 'flash-mode-line)

@@ -1,6 +1,6 @@
 (require 'package)
 
-(defun install-config-packages ()
+(defun pmh/install-config-packages ()
   (interactive)
   (progn
     (package-install 'slime)
