@@ -7,8 +7,8 @@ Add this to your startup Emacs config (be that `.emacs` or `~/.config/emacs/`:
     (list (expand-file-name "~/Repos/emacs-config"))
 ))
 
-(load "seutp.el")
-(load "init.elc")
+(load "setup.el")
+(load "init.el")
 ```
 ## M-x commands
 * **install-config-packages**
