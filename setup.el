@@ -29,6 +29,7 @@
     (package-install 'doom-modeline)
     (package-install 'doom-themes)
     (package-install 'all-the-icons)
+	(package-install 'treemacs-nerd-icons)
 	(message "Installation Complete")
     ))
 

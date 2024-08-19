@@ -1,4 +1,5 @@
 (use-package doom-themes
+  :if (display-graphic-p)
   :ensure t
   :config
   ;; Global settings (defaults)
@@ -64,7 +65,8 @@
   :defer 5
   :config
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  (package-initialize))
+  (if (< emacs-major-version 27)
+  (package-initialize)))
 
 (use-package nerd-icons
   :custom 
