@@ -112,24 +112,32 @@
   (setq dashboard-icon-type 'nerd-icons)
   (dashboard-setup-startup-hook))
 
-(use-package org
-  :defer 20
-  :hook ((org-mode . #'auto-fill-mode)
-		 (org-agenda-finalize . #'org-modern-agenda))
-  :config
-  (setq org-support-shift-select t)
-  (setq org-directory
+;;(use-package org
+;;  :ensure t
+;;  :hook ((org-mode . #'auto-fill-mode)
+;;		 (org-agenda-finalize . #'org-modern-agenda))
+;;  :
+;;  (setq org-pretty-entities t)
+;;  (setq org-insert-heading-respect-content t)
+;;  (setq org-agenda-include-diary t))
+
+(with-eval-after-load 'org (global-org-modern-mode))
+
+(setq org-directory
 		(if (eq system-type 'darwin)
 			"~/Documents/org"
 		  (if (eq system-type 'windows-nt)
 			  "~/iCloudDrive/Documents/org")))
-  (setq org-startup-truncated nil)
-  (setq org-hide-emphasis-markers t)
-  (setq org-pretty-entities t)
-  (setq org-insert-heading-respect-content t)
-  (setq org-agenda-include-diary t))
 
-(with-eval-after-load 'org (global-org-modern-mode))
+(use-package org
+  :ensure t
+  :init
+  (auto-fill-mode)
+  :custom
+  (org-support-shift-select t)
+  (org-startup-truncated nil)
+  (org-hide-emphasis-markers t))
+
 
 (use-package recentf
   :defer t
@@ -150,3 +158,5 @@
 
 (add-hook 'after-init-hook 'global-company-mode)
 
+; When switching buffers, do not open a new window
+(set-window-dedicated-p (selected-window) nil)
