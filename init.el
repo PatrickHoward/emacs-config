@@ -39,6 +39,7 @@
   (if (eq system-type 'windows-nt)
       (setq shell-file-name "C:/Program Files/nu/bin/nu.exe")))
 
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
 
 (setq default-directory "~/")
@@ -131,12 +132,13 @@
 
 (use-package org
   :ensure t
-  :init
-  (auto-fill-mode)
+  :hook (org . #'auto-fill-mode)
   :custom
   (org-support-shift-select t)
   (org-startup-truncated nil)
-  (org-hide-emphasis-markers t))
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t)
+  (org-insert-heading-respect-content t))
 
 
 (use-package recentf
