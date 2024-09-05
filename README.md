@@ -11,4 +11,7 @@ Add this to your startup Emacs config (be that `.emacs` or `~/.config/emacs/`:
 (load "init.el")
 ```
 ## M-x commands
-* **install-config-packages**
+* **pmh/install-config-packages**
+  * Installs all of the packages I commonly use with this emacs config.
+* **pmh/compile-org-scratch**
+  * Compiles `org-scratch.el`, allowing support for org-scratch buffers.
