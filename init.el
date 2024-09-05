@@ -39,7 +39,7 @@
   (if (eq system-type 'windows-nt)
       (setq shell-file-name "C:/Program Files/nu/bin/nu.exe")))
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
 
 (setq default-directory "~/")
@@ -113,15 +113,6 @@
   (setq dashboard-icon-type 'nerd-icons)
   (dashboard-setup-startup-hook))
 
-;;(use-package org
-;;  :ensure t
-;;  :hook ((org-mode . #'auto-fill-mode)
-;;		 (org-agenda-finalize . #'org-modern-agenda))
-;;  :
-;;  (setq org-pretty-entities t)
-;;  (setq org-insert-heading-respect-content t)
-;;  (setq org-agenda-include-diary t))
-
 (with-eval-after-load 'org (global-org-modern-mode))
 
 (setq org-directory
@@ -149,6 +140,16 @@
   :config
   (setq recentf-max-menu-items 5)
   (setq recentf-max-saved-items 5))
+
+(use-package easysession
+  :ensure t
+  :hook
+  ((emacs-startup . #'easysession-load 98)
+   (emacs-startup . #'easysession-save-mode 99)))
+   
+
+(require 'dirvish)
+(dirvish-override-dired-mode)
 
 (defun kill-selected-text ()
   (interactive)

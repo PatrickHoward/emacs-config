@@ -3,6 +3,7 @@
 (defun pmh/install-config-packages ()
   (interactive)
   (progn
+	(pakage-refresh)
     (package-install 'slime)
     (package-install 'typescript-mode)
     (package-install 'org-jira)
@@ -30,6 +31,7 @@
     (package-install 'doom-themes)
     (package-install 'all-the-icons)
 	(package-install 'treemacs-nerd-icons)
+	(package-install 'easysession)
 	(message "Installation Complete")
     ))
 
