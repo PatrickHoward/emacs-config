@@ -11,3 +11,5 @@
 # Undo-tree save-files
 *.~undo-tree
 
+# macOS Finder Hidden files
+.DS_Store

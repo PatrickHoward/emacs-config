@@ -141,11 +141,11 @@
   (setq recentf-max-menu-items 5)
   (setq recentf-max-saved-items 5))
 
-(use-package easysession
-  :ensure t
-  :hook
-  ((emacs-startup . #'easysession-load 98)
-   (emacs-startup . #'easysession-save-mode 99)))
+;;(use-package easysession
+;;  :ensure t
+;;  :hook
+;;  ((emacs-startup . #'easysession-load 98)
+;;   (emacs-startup . #'easysession-save-mode 99)))
    
 
 (require 'dirvish)
@@ -156,6 +156,8 @@
   (if (region-active-p)
       (call-interactively 'kill-region)
     (call-interactively 'kill-line)))
+
+(load "org-scratch.elc")
 
 (global-set-key (kbd "C-k") 'kill-selected-text)
 

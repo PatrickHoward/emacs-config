@@ -32,7 +32,10 @@
     (package-install 'all-the-icons)
 	(package-install 'treemacs-nerd-icons)
 	(package-install 'easysession)
+	(package-install 'dirvish)
 	(message "Installation Complete")
     ))
 
-  
+(defun pmh/compile-org-scratch ()
+  (interactive)
+  (byte-compile-file "org-scratch.el"))
