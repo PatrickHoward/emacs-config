@@ -3,7 +3,7 @@
 (defun pmh/install-config-packages ()
   (interactive)
   (progn
-	(pakage-refresh)
+	(package-refresh-contents)
     (package-install 'slime)
     (package-install 'typescript-mode)
     (package-install 'org-jira)
@@ -33,9 +33,10 @@
 	(package-install 'treemacs-nerd-icons)
 	(package-install 'easysession)
 	(package-install 'dirvish)
-	(message "Installation Complete")
-    ))
+	(package-install 'yaml-mode)
+	(package-install 'org-tree-slide-mode)
+	(message "Installation Complete")))
 
 (defun pmh/compile-org-scratch ()
   (interactive)
-  (byte-compile-file "org-scratch.el"))
+  (byte-compile-file "./org-scratch.el"))

@@ -45,6 +45,7 @@
 (setq default-directory "~/")
 
 ;; Copypasta'd from https://emacs.stackexchange.com/questions/17210/how-to-place-all-auto-save-files-in-a-directory
+;; TODO: Though this doesn't seem to work?
 (setq
    backup-by-copying t      ; don't clobber symlinks
    backup-directory-alist
@@ -63,7 +64,7 @@
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 (use-package package
-  :defer 5
+  :defer t
   :config
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (if (< emacs-major-version 27)
@@ -74,7 +75,6 @@
  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 (use-package treemacs
-  :defer t
   :hook
   ((after-init . treemacs)(treemacs . treemacs-follow-project-mode))
   :config
@@ -94,12 +94,11 @@
   (doom-modeline-battery t))
 
 (use-package alert
-  :defer 10
+  :defer t
   :config
   (setq alert-default-style 'notifier))
 
 (use-package spacious-padding
-  :defer t
   :hook (emacs-startup . #'spacious-padding))
 
 (use-package dashboard
@@ -122,7 +121,7 @@
 			  "~/iCloudDrive/Documents/org")))
 
 (use-package org
-  :ensure t
+  :defer t
   :hook (org . #'auto-fill-mode)
   :custom
   (org-support-shift-select t)
