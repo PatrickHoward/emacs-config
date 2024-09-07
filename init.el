@@ -103,14 +103,16 @@
 
 (use-package dashboard
   :ensure t
+  :custom
+  (dashboard-banner-logo-title "EMACS!")
+  (dashboard-startup-banner 'logo)
+  (dashboard-center-content t)
+  (dashboard-vertically-center-content t)
+  (dashboard-display-icons-p t)
+  (dashboard-icon-type 'nerd-icons)
   :config
-  (setq dashboard-banner-logo-title "EMACS!")
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-center-content t)
-  (setq dashboard-vertically-center-content t)
-  (setq dashboard-display-icons-p t)
-  (setq dashboard-icon-type 'nerd-icons)
-  (dashboard-setup-startup-hook))
+  (dashboard-setup-startup-hook)
+  (dashboard-open))
 
 (with-eval-after-load 'org (global-org-modern-mode))
 
