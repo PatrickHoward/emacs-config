@@ -63,12 +63,43 @@
   (invert-face 'mode-line)
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
+(use-package use-package
+  :custom
+  (use-package-always-ensure t)
+  (package-native-compile t))
+
 (use-package package
   :defer t
   :config
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (if (< emacs-major-version 27)
   (package-initialize)))
+
+(use-package vertico
+  :init
+  (vertico-mode)
+  :custom
+  (vertico-sort-function 'vertico-sort-history-alpha))
+
+(use-package which-key
+  :config
+  (which-key-mode)
+  :custom
+  (which-key-max-description-length 40)
+  (which-key-lighter nil)
+  (which-key-sort-order 'which-key-description-order))
+
+(use-package nov
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
+(use-package ediff
+  :ensure nil
+  :custom
+  (ediff-keep-variants nil)
+  (ediff-split-window-function 'split-window-vertically)
+  (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package nerd-icons
   :custom 
@@ -124,14 +155,13 @@
 
 (use-package org
   :defer t
-  :hook (org . #'auto-fill-mode)
   :custom
+  (add-hook 'org-mode-hook 'auto-fill-mode)
   (org-support-shift-select t)
   (org-startup-truncated nil)
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
   (org-insert-heading-respect-content t))
-
 
 (use-package recentf
   :defer t
@@ -141,13 +171,6 @@
   :config
   (setq recentf-max-menu-items 5)
   (setq recentf-max-saved-items 5))
-
-;;(use-package easysession
-;;  :ensure t
-;;  :hook
-;;  ((emacs-startup . #'easysession-load 98)
-;;   (emacs-startup . #'easysession-save-mode 99)))
-   
 
 (require 'dirvish)
 (dirvish-override-dired-mode)

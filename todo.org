@@ -1,0 +1,13 @@
+#+TITLE: Config Todos
+
+| TODO   | In Progress | Done |
+| #ERROR |             |      |
+| #ERROR |             |      |
+| #ERROR |             |      |
+#+TBLFM: @1$1='(kanban-headers)::@2$1..@>$1='(kanban-todo @# @2$2..@>$>)
+
+
+* TODO Fix auto-fill-mode not working properly
+ - It claims that it's on, but its not automatically inserting newlines, I've been having to do it manually.
+
+

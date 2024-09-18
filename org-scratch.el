@@ -9,7 +9,8 @@
 	  (if buffer-doesnt-exist-p
 		  (progn
 			(insert "#+BEGIN_COMMENT\n"
-					"This is a scratch buffer with Org Mode enabled.\n"
+					"This is a buffer with org-mode enabled.\n"
+					"Anything you write in this buffer will not be saved.\n"
 					"Use this as a scratch pad for your ideas!\n"
 					"#+END_COMMENT\n\n")
 			(org-mode))))))

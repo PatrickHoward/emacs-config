@@ -35,6 +35,10 @@
 	(package-install 'dirvish)
 	(package-install 'yaml-mode)
 	(package-install 'org-tree-slide-mode)
+	(pmh/compile-org-scratch)
+	(package-install 'vertico)
+	(package-install 'which-key)
+	(package-install 'nov)
 	(message "Installation Complete")))
 
 (defun pmh/compile-org-scratch ()
