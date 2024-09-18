@@ -39,6 +39,7 @@
 	(package-install 'vertico)
 	(package-install 'which-key)
 	(package-install 'nov)
+	(package-install 'vertico-posframe)
 	(message "Installation Complete")))
 
 (defun pmh/compile-org-scratch ()

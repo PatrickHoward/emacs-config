@@ -75,11 +75,13 @@
   (if (< emacs-major-version 27)
   (package-initialize)))
 
+(require 'vertico-posframe)
 (use-package vertico
   :init
   (vertico-mode)
   :custom
-  (vertico-sort-function 'vertico-sort-history-alpha))
+  (vertico-sort-function 'vertico-sort-history-alpha)
+  (vertico-posframe-mode 1))
 
 (use-package which-key
   :config
