@@ -40,6 +40,7 @@
 	(package-install 'which-key)
 	(package-install 'nov)
 	(package-install 'vertico-posframe)
+	(package-install 'magit)
 	(message "Installation Complete")))
 
 (defun pmh/compile-org-scratch ()
