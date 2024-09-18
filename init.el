@@ -186,6 +186,7 @@
 (load "org-scratch.elc")
 
 (global-set-key (kbd "C-k") 'kill-selected-text)
+(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 
 (add-hook 'after-init-hook 'global-company-mode)
 
