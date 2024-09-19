@@ -7,7 +7,14 @@
 #+TBLFM: @1$1='(kanban-headers)::@2$1..@>$1='(kanban-todo @# @2$2..@>$>)
 
 
-* TODO Fix auto-fill-mode not working properly
- - It claims that it's on, but its not automatically inserting newlines, I've been having to do it manually.
+* DONE Fix auto-fill-mode not working properly
+ - It claims that it's on, but its not automatically inserting newlines, I've
+   been having to do it manually.
 
+* TODO Setup ~org-crypt~ on config
+ - Would like to be able to encrypt org files so I can store them wherever.
 
+* TODO Kanban doesn't seem to be setup correctly
+ - I tried to use it on the table above, but to no luck
+ - Ideally, I could create Kanbans out of a collection of TODOs in an org
+   file.

@@ -157,13 +157,15 @@
 
 (use-package org
   :defer t
+  :hook (org-mode . auto-fill-mode)
   :custom
-  (add-hook 'org-mode-hook 'auto-fill-mode)
   (org-support-shift-select t)
   (org-startup-truncated nil)
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
   (org-insert-heading-respect-content t))
+
+(setq-default fill-column 80)
 
 (use-package recentf
   :defer t
