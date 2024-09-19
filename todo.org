@@ -1,12 +1,5 @@
 #+TITLE: Config Todos
 
-| TODO   | In Progress | Done |
-| #ERROR |             |      |
-| #ERROR |             |      |
-| #ERROR |             |      |
-#+TBLFM: @1$1='(kanban-headers)::@2$1..@>$1='(kanban-todo @# @2$2..@>$>)
-
-
 * DONE Fix auto-fill-mode not working properly
  - It claims that it's on, but its not automatically inserting newlines, I've
    been having to do it manually.
@@ -18,3 +11,7 @@
  - I tried to use it on the table above, but to no luck
  - Ideally, I could create Kanbans out of a collection of TODOs in an org
    file.
+
+* TODO Improve pmh/install-config-packages to actually scale correctly
+ - Instead of install-config-packages having a massive list of ~package-install~ function calls, I should
+   have a list of packages for install.   
