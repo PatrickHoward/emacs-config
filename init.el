@@ -189,6 +189,7 @@
 
 (global-set-key (kbd "C-k") 'kill-selected-text)
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+(global-set-key (kbd "C-x C-k") 'kill-buffer)
 
 (add-hook 'after-init-hook 'global-company-mode)
 
