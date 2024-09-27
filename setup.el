@@ -1,5 +1,14 @@
 (require 'package)
 
+(defun pmh/first-time-setup ()
+  "Use this when setting up on a new computer. Only really needs to be run once."
+  (interactive)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (if (< emacs-major-version 27)
+	  (package-initialize))
+  (pmh/install-config-packages)
+  (load "init.el"))
+
 (defun pmh/install-config-packages ()
   (interactive)
   (progn
@@ -34,7 +43,7 @@
 	(package-install 'easysession)
 	(package-install 'dirvish)
 	(package-install 'yaml-mode)
-	(package-install 'org-tree-slide-mode)
+	(package-install 'org-tree-slide)
 	(pmh/compile-org-scratch)
 	(package-install 'vertico)
 	(package-install 'which-key)
