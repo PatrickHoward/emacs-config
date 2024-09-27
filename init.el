@@ -163,7 +163,8 @@
   (org-startup-truncated nil)
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
-  (org-insert-heading-respect-content t))
+  (org-insert-heading-respect-content t)
+  (org-agenda-files (list (concat org-directory "/todo.org"))))
 
 (setq-default fill-column 80)
 
