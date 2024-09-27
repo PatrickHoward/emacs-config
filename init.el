@@ -194,3 +194,5 @@
 
 ; When switching buffers, do not open a new window
 (set-window-dedicated-p (selected-window) nil)
+
+(redraw-display)
