@@ -15,3 +15,5 @@
 * TODO Improve pmh/install-config-packages to actually scale correctly
  - Instead of install-config-packages having a massive list of ~package-install~ function calls, I should
    have a list of packages for install.   
+
+* TODO Show/Hide Treemacs if the frame's size is above or below a certain size.
