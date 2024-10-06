@@ -177,6 +177,12 @@
   (setq recentf-max-menu-items 5)
   (setq recentf-max-saved-items 5))
 
+(use-package clang-format
+  :defer t
+  :bind
+  (("C-;" . clang-format-region)
+   ("C-:" . clang-format-buffer)))
+
 (require 'dirvish)
 (dirvish-override-dired-mode)
 
