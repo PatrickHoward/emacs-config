@@ -51,6 +51,7 @@
 	(package-install 'vertico-posframe)
 	(package-install 'magit)
 	(package-install 'lsp-mode)
+	(package-install 'company-box)
 	(message "Installation Complete")))
 
 (defun pmh/compile-org-scratch ()

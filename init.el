@@ -192,9 +192,25 @@
       (call-interactively 'kill-region)
     (call-interactively 'kill-line)))
 
+;; Very neat company mode config taken from here
+;; https://www.reddit.com/r/emacs/comments/8z4jcs/tip_how_to_integrate_company_as_completion/
+(use-package company
+  :defer 2
+  :diminish
+  :custom
+  (company-begin-commands '(self-insert-command))
+  (company-idle-delay .1)
+  (company-minimum-prefix-length 2)
+  (company-show-numbers t)
+  (company-tooltip-align-annotations 't)
+  (global-company-mode t))
+
+(use-package company-box
+  :after company
+  :diminish
+  :hook (company-mode . company-box-mode))
+
 (load "org-scratch.elc")
-
-
 
 (global-set-key (kbd "C-k") 'kill-selected-text)
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
