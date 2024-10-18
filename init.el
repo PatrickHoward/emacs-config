@@ -1,3 +1,9 @@
+(add-to-list 'default-frame-alist '(width  . 155))
+(add-to-list 'default-frame-alist '(height . 50))
+
+(set-face-attribute 'default nil :height 125)
+(set-face-attribute 'mode-line-buffer-id nil :foreground "white")
+
 (use-package doom-themes
   :if (display-graphic-p)
   :ensure t
@@ -14,14 +20,7 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-(tab-bar-mode t)
 (scroll-bar-mode 0)
-
-(add-to-list 'default-frame-alist '(width  . 155))
-(add-to-list 'default-frame-alist '(height . 50))
-
-(set-face-attribute 'default nil :height 125)
-(set-face-attribute 'mode-line-buffer-id nil :foreground "white")
 
 (set-default 'truncate-lines nil)
 (setq-default tab-width 4)
@@ -183,8 +182,10 @@
   (("C-;" . clang-format-region)
    ("C-:" . clang-format-buffer)))
 
-(require 'dirvish)
-(dirvish-override-dired-mode)
+(use-package dirvish
+  :defer t
+  :init
+  (dirvish-override-dired-mode))
 
 (defun kill-selected-text ()
   (interactive)
@@ -212,6 +213,7 @@
 
 (load "org-scratch.elc")
 
+;; Additonal keybinds in the event I don't let go soon enough, ACCESSIBILITY!
 (global-set-key (kbd "C-k") 'kill-selected-text)
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-x C-k") 'kill-buffer)
