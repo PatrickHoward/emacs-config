@@ -78,6 +78,15 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config (column-number-mode 1)
+  :custom
+  (doom-modeline-height 30)
+  (doom-modeline-window-width-limit nil)
+  (doom-modeline-battery t))
+
 (setq org-directory
 		(if (eq system-type 'darwin)
 			"~/Documents/org"
@@ -156,15 +165,6 @@
   :ensure t
   :config
   (treemacs-load-theme "nerd-icons"))
-
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1)
-  :config (column-number-mode 1)
-  :custom
-  (doom-modeline-height 30)
-  (doom-modeline-window-width-limit nil)
-  (doom-modeline-battery t))
 
 (use-package alert
   :ensure t
@@ -249,17 +249,29 @@
   :ensure t
   :defer t)
 
+(use-package yaml-mode
+  :ensure t
+  :defer t)
+
 (use-package slime
   :ensure t
   :defer t
   :custom
   (inferior-lisp-program "sbcl"))
 
+(use-package company-slime
+  :ensure t
+  :defer t)
+
 (use-package lsp-mode
   :ensure t
   :defer t
   :custom
   (add-to-list 'auto-mode-alist '("\\.cs\\" . lsp)))
+
+(use-package typescript-mode
+  :ensure t
+  :defer t)
 
 (load "org-scratch.elc")
 
