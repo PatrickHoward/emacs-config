@@ -15,19 +15,19 @@
   
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  (setq doom-themes-treemacs-theme "doom-one") ; use "doom-colors" for less minimal icon theme
+  (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
   (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-(scroll-bar-mode 0)
-
 (set-default 'truncate-lines nil)
 (setq-default tab-width 4)
+
 
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
 (menu-bar-mode 0)
+(scroll-bar-mode 0)
 
 (if (eq system-type 'darwin)
     (progn
@@ -37,9 +37,6 @@
 	  (menu-bar-mode t))
   (if (eq system-type 'windows-nt)
       (setq shell-file-name "C:/Program Files/nu/bin/nu.exe")))
-
-;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
 
 (setq default-directory "~/")
 
@@ -56,15 +53,14 @@
 
 ;; Disable beeping, thanks to https://github.com/sban/emacs
 (setq visible-bell nil
-      ring-bell-function 'flash-mode-line)
-
-(defun flash-mode-line ()
-  (invert-face 'mode-line)
-  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+	  ring-bell-function
+	  '(lambda ()
+		 (invert-face 'mode-line)
+		 (run-with-timer 0.1 nil #'invert-face 'mode-line)))
 
 (use-package use-package
+  :ensure t
   :custom
-  (use-package-always-ensure t)
   (package-native-compile t))
 
 (use-package package
@@ -72,10 +68,33 @@
   :config
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (if (< emacs-major-version 27)
-  (package-initialize)))
+	  (package-initialize)))
 
-(require 'vertico-posframe)
+(with-eval-after-load 'org (global-org-modern-mode))
+
+(setq org-directory
+		(if (eq system-type 'darwin)
+			"~/Documents/org"
+		  (if (eq system-type 'windows-nt)
+			  "~/iCloudDrive/Documents/org")))
+
+(use-package org
+  :ensure t
+  :defer t
+  :hook (org-mode . auto-fill-mode)
+  :custom
+  (org-support-shift-select t)
+  (org-startup-truncated nil)
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t)
+  (org-insert-heading-respect-content t)
+  (org-agenda-files (list (concat org-directory "/todo.org"))))
+
+(use-package vertico-posframe
+  :ensure t)
+
 (use-package vertico
+  :ensure t
   :init
   (vertico-mode)
   :custom
@@ -83,6 +102,8 @@
   (vertico-posframe-mode 1))
 
 (use-package which-key
+  :defer t
+  :ensure t
   :config
   (which-key-mode)
   :custom
@@ -92,27 +113,31 @@
 
 (use-package nov
   :defer t
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 (use-package ediff
-  :ensure nil
+  :ensure t
   :custom
   (ediff-keep-variants nil)
   (ediff-split-window-function 'split-window-vertically)
   (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package nerd-icons
-  :custom 
- (nerd-icons-font-family "Symbols Nerd Font Mono"))
+  :ensure t
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 (use-package treemacs
+  :ensure t
   :hook
   ((after-init . treemacs)(treemacs . treemacs-follow-project-mode))
-  :config
-  (setq treemacs-show-hidden-files nil))
+  :custom
+  (treemacs-show-hidden-files nil))
 
 (use-package treemacs-nerd-icons
+  :ensure t
   :config
   (treemacs-load-theme "nerd-icons"))
 
@@ -126,11 +151,13 @@
   (doom-modeline-battery t))
 
 (use-package alert
+  :ensure t
   :defer t
   :config
   (setq alert-default-style 'notifier))
 
 (use-package spacious-padding
+  :ensure t
   :hook (emacs-startup . #'spacious-padding))
 
 (use-package dashboard
@@ -146,28 +173,16 @@
   (dashboard-setup-startup-hook)
   (dashboard-open))
 
-(with-eval-after-load 'org (global-org-modern-mode))
-
-(setq org-directory
-		(if (eq system-type 'darwin)
-			"~/Documents/org"
-		  (if (eq system-type 'windows-nt)
-			  "~/iCloudDrive/Documents/org")))
-
-(use-package org
+(use-package org-tree-slide
+  :ensure t
   :defer t
-  :hook (org-mode . auto-fill-mode)
-  :custom
-  (org-support-shift-select t)
-  (org-startup-truncated nil)
-  (org-hide-emphasis-markers t)
-  (org-pretty-entities t)
-  (org-insert-heading-respect-content t)
-  (org-agenda-files (list (concat org-directory "/todo.org"))))
+  :init (read-only-mode)
+  :bind ("C-x C-t" . org-tree-slide-mode))
 
 (setq-default fill-column 80)
 
 (use-package recentf
+  :ensure t
   :defer t
   :init
   (recentf-mode t)
@@ -177,12 +192,14 @@
   (setq recentf-max-saved-items 5))
 
 (use-package clang-format
+  :ensure t
   :defer t
   :bind
   (("C-;" . clang-format-region)
    ("C-:" . clang-format-buffer)))
 
 (use-package dirvish
+  :ensure t
   :defer t
   :init
   (dirvish-override-dired-mode))
@@ -196,6 +213,7 @@
 ;; Very neat company mode config taken from here
 ;; https://www.reddit.com/r/emacs/comments/8z4jcs/tip_how_to_integrate_company_as_completion/
 (use-package company
+  :ensure t
   :defer 2
   :diminish
   :custom
@@ -207,9 +225,31 @@
   (global-company-mode t))
 
 (use-package company-box
+  :ensure t
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
+
+(use-package magit
+  :ensure t
+  :defer t
+  :bind ("C-x C-g" . magit))
+
+(use-package rust-mode
+  :ensure t
+  :defer t)
+
+(use-package slime
+  :ensure t
+  :defer t
+  :custom
+  (inferior-lisp-program "sbcl"))
+
+(use-package lsp-mode
+  :ensure t
+  :defer t
+  :custom
+  (add-to-list 'auto-mode-alist '("\\.cs\\" . lsp)))
 
 (load "org-scratch.elc")
 
