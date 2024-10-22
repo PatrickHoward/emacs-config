@@ -1,28 +1,20 @@
+;; Additonal keybinds in the event I don't let go soon enough, ACCESSIBILITY!
+(global-set-key (kbd "C-k") 'kill-selected-text)
+(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+(global-set-key (kbd "C-x C-k") 'kill-buffer)
+(global-set-key (kbd "C-SPC") 'set-mark-command)
+
+; When switching buffers, do not open a new window
+(set-window-dedicated-p (selected-window) nil)
+
 (add-to-list 'default-frame-alist '(width  . 155))
 (add-to-list 'default-frame-alist '(height . 50))
 
 (set-face-attribute 'default nil :height 125)
 (set-face-attribute 'mode-line-buffer-id nil :foreground "white")
 
-(use-package doom-themes
-  :if (display-graphic-p)
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-tokyo-night t)
-  
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
-  (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
 (set-default 'truncate-lines nil)
 (setq-default tab-width 4)
-
 
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
@@ -70,7 +62,21 @@
   (if (< emacs-major-version 27)
 	  (package-initialize)))
 
-(with-eval-after-load 'org (global-org-modern-mode))
+(use-package doom-themes
+  :if (display-graphic-p)
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-tokyo-night t)
+  
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 (setq org-directory
 		(if (eq system-type 'darwin)
@@ -81,14 +87,24 @@
 (use-package org
   :ensure t
   :defer t
-  :hook (org-mode . auto-fill-mode)
+  :hook
+  ((org-mode . auto-fill-mode) (org-mode . org-modern-mode))
   :custom
   (org-support-shift-select t)
   (org-startup-truncated nil)
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
   (org-insert-heading-respect-content t)
-  (org-agenda-files (list (concat org-directory "/todo.org"))))
+  (org-agenda-files (list (concat org-directory "/todo.org")))
+  (org-image-actual-width 120))
+
+(use-package org-tree-slide
+  :ensure t
+  :defer t
+  :init (read-only-mode)
+  :bind ("C-x C-t" . org-tree-slide-mode))
+
+(setq-default fill-column 80)
 
 (use-package vertico-posframe
   :ensure t)
@@ -173,14 +189,6 @@
   (dashboard-setup-startup-hook)
   (dashboard-open))
 
-(use-package org-tree-slide
-  :ensure t
-  :defer t
-  :init (read-only-mode)
-  :bind ("C-x C-t" . org-tree-slide-mode))
-
-(setq-default fill-column 80)
-
 (use-package recentf
   :ensure t
   :defer t
@@ -228,7 +236,9 @@
   :ensure t
   :after company
   :diminish
-  :hook (company-mode . company-box-mode))
+  :hook
+  ((company-mode . company-box-mode)
+   (after-init . global-company-mode)))
 
 (use-package magit
   :ensure t
@@ -252,16 +262,5 @@
   (add-to-list 'auto-mode-alist '("\\.cs\\" . lsp)))
 
 (load "org-scratch.elc")
-
-;; Additonal keybinds in the event I don't let go soon enough, ACCESSIBILITY!
-(global-set-key (kbd "C-k") 'kill-selected-text)
-(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
-(global-set-key (kbd "C-x C-k") 'kill-buffer)
-(global-set-key (kbd "C-SPC") 'set-mark-command)
-
-(add-hook 'after-init-hook 'global-company-mode)
-
-; When switching buffers, do not open a new window
-(set-window-dedicated-p (selected-window) nil)
 
 (redraw-display)
