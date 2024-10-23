@@ -266,6 +266,7 @@
 (use-package lsp-mode
   :ensure t
   :defer t
+  :bind ("M-RET" . lsp-execute-code-action)
   :custom
   (add-to-list 'auto-mode-alist '("\\.cs\\" . lsp)))
 
