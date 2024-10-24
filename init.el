@@ -71,7 +71,7 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-tokyo-night t)
+  (load-theme 'doom-bluloco-dark t)
   
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -260,10 +260,6 @@
   :defer t
   :custom
   (inferior-lisp-program "sbcl"))
-
-(use-package company-slime
-  :ensure t
-  :defer t)
 
 (use-package lsp-mode
   :ensure t
