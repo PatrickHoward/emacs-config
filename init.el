@@ -3,6 +3,8 @@
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-x C-k") 'kill-buffer)
 (global-set-key (kbd "C-SPC") 'set-mark-command)
+(global-set-key (kbd "C-x s") nil)
+(global-set-key (kbd "C-S-x C-S-s") 'save-some-buffers)
 
 ; When switching buffers, do not open a new window
 (set-window-dedicated-p (selected-window) nil)
