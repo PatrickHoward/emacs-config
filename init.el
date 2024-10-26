@@ -71,7 +71,6 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-bluloco-dark t)
   
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -79,6 +78,23 @@
   (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+
+(setq pmh/current-theme nil)
+(defun pmh/update-theme-based-on-time ()
+  (let ((daytime-start 6)
+	  (daytime-end 18)
+	  (light-theme 'doom-bluloco-light)
+	  (dark-theme 'doom-bluloco-dark)
+	  (active-theme pmh/current-theme)
+	  (hour (string-to-number (substring (current-time-string) 11 13))))
+	(setq pmh/current-theme
+		  (if (member hour (number-sequence daytime-start daytime-end))
+			light-theme
+			dark-theme))
+	(if (not (equal active-theme pmh/current-theme))
+		(load-theme pmh/current-theme))))
+
+(run-with-timer 0 1800 'pmh/update-theme-based-on-time)
 
 (use-package doom-modeline
   :ensure t
@@ -112,7 +128,6 @@
 (use-package org-tree-slide
   :ensure t
   :defer t
-  :init (read-only-mode)
   :bind ("C-x C-t" . org-tree-slide-mode))
 
 (setq-default fill-column 80)
@@ -159,7 +174,7 @@
 (use-package treemacs
   :ensure t
   :hook
-  ((after-init . treemacs)(treemacs . treemacs-follow-project-mode))
+  ((after-init . treemacs) (treemacs . treemacs-follow-project-mode))
   :custom
   (treemacs-show-hidden-files nil))
 
@@ -224,7 +239,7 @@
 ;; https://www.reddit.com/r/emacs/comments/8z4jcs/tip_how_to_integrate_company_as_completion/
 (use-package company
   :ensure t
-  :defer 2
+  :defer t
   :diminish
   :custom
   (company-begin-commands '(self-insert-command))
@@ -236,6 +251,7 @@
 
 (use-package company-box
   :ensure t
+  :defer t
   :after company
   :diminish
   :hook
@@ -273,5 +289,4 @@
   :defer t)
 
 (load "org-scratch.elc")
-
 (redraw-display)
