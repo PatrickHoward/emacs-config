@@ -5,6 +5,7 @@
 (global-set-key (kbd "C-SPC") 'set-mark-command)
 (global-set-key (kbd "C-x s") nil)
 (global-set-key (kbd "C-S-x C-S-s") 'save-some-buffers)
+(global-set-key (kbd "C-x C-r") 'revert-buffer)
 
 ; When switching buffers, do not open a new window
 (set-window-dedicated-p (selected-window) nil)
@@ -81,6 +82,7 @@
 
 (setq pmh/current-theme nil)
 (defun pmh/update-theme-based-on-time ()
+  (interactive)
   (let ((daytime-start 6)
 	  (daytime-end 18)
 	  (light-theme 'doom-bluloco-light)
@@ -205,16 +207,6 @@
   :config
   (dashboard-setup-startup-hook)
   (dashboard-open))
-
-(use-package recentf
-  :ensure t
-  :defer t
-  :init
-  (recentf-mode t)
-  :bind ("C-x C-r" . recentf-open-files)
-  :config
-  (setq recentf-max-menu-items 5)
-  (setq recentf-max-saved-items 5))
 
 (use-package clang-format
   :ensure t
