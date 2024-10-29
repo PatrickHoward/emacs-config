@@ -1,6 +1,6 @@
 #+TITLE: Config Todos
 
-* DONE Fix auto-fill-mode not working properly
+* DONE Fix auto-fill-mode not working properly                    :ARCHIVE:
  - It claims that it's on, but its not automatically inserting newlines, I've
    been having to do it manually.
 
@@ -11,9 +11,11 @@
  - I tried to use it on the table above, but to no luck
  - Ideally, I could create Kanbans out of a collection of TODOs in an org
    file.
-
-* TODO Improve pmh/install-config-packages to actually scale correctly
+* DONE Improve pmh/install-config-packages to actually scale correctly :ARCHIVE:
  - Instead of install-config-packages having a massive list of ~package-install~ function calls, I should
-   have a list of packages for install.   
+   have a list of packages for install.
+ - I'm stupid, ~use-package~ with ~:ensure~ set, is the exact thing I was looking
+   for, I don't even need to have two separate files anymore ❤️
+
 
 * TODO Show/Hide Treemacs if the frame's size is above or below a certain size.

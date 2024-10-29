@@ -1,15 +1,26 @@
-;; Additonal keybinds in the event I don't let go soon enough, ACCESSIBILITY!
-(global-set-key (kbd "C-k") 'kill-selected-text)
+;; Common keybinds, some of these are modified
+;; to account for me messing up frequent ones 
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-x C-k") 'kill-buffer)
 (global-set-key (kbd "C-SPC") 'set-mark-command)
-(global-set-key (kbd "C-x s") nil)
+(global-set-key (kbd "C-x s") 'save-current-buffer)
 (global-set-key (kbd "C-S-x C-S-s") 'save-some-buffers)
 (global-set-key (kbd "C-x C-r") 'revert-buffer)
+(global-set-key (kbd "C-t") nil)
+(global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
-; When switching buffers, do not open a new window
+(defun pmh/kill-selected-text ()
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'kill-region)
+    (call-interactively 'kill-line)))
+
+(global-set-key (kbd "C-k") 'pmh/kill-selected-text)
+
+;; When switching buffers, do not open a new window
 (set-window-dedicated-p (selected-window) nil)
 
+;; Adjust the size of the window 
 (add-to-list 'default-frame-alist '(width  . 155))
 (add-to-list 'default-frame-alist '(height . 50))
 
@@ -33,7 +44,7 @@
   (if (eq system-type 'windows-nt)
       (setq shell-file-name "C:/Program Files/nu/bin/nu.exe")))
 
-(setq default-directory "~/")
+(setq-default default-directory "~/")
 
 ;; Copypasta'd from https://emacs.stackexchange.com/questions/17210/how-to-place-all-auto-save-files-in-a-directory
 ;; TODO: Though this doesn't seem to work?
@@ -68,18 +79,20 @@
 (use-package doom-themes
   :if (display-graphic-p)
   :ensure t
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  (doom-themes-treemacs-theme "doom-colors")
   :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
   (doom-themes-treemacs-config)
+  
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+;; Checks the hour every 30 mins and sees if we should use
+;; daytime or nighttime
 (setq pmh/current-theme nil)
 (defun pmh/update-theme-based-on-time ()
   (interactive)
@@ -100,18 +113,14 @@
 
 (use-package doom-modeline
   :ensure t
-  :init (doom-modeline-mode 1)
-  :config (column-number-mode 1)
+  :init
+  (doom-modeline-mode 1)
+  :config
+  (column-number-mode 1)
   :custom
   (doom-modeline-height 30)
   (doom-modeline-window-width-limit nil)
   (doom-modeline-battery t))
-
-(setq org-directory
-		(if (eq system-type 'darwin)
-			"~/Documents/org"
-		  (if (eq system-type 'windows-nt)
-			  "~/iCloudDrive/Documents/org")))
 
 (use-package org
   :ensure t
@@ -119,6 +128,12 @@
   :hook
   ((org-mode . auto-fill-mode) (org-mode . org-modern-mode))
   :custom
+  (org-directory
+   (if (eq system-type 'darwin)
+	   "~/Documents/org"
+	 (if (eq system-type 'windows-nt)
+		 "~/iCloudDrive/Documents/org")))
+  
   (org-support-shift-select t)
   (org-startup-truncated nil)
   (org-hide-emphasis-markers t)
@@ -129,8 +144,43 @@
 
 (use-package org-tree-slide
   :ensure t
-  :defer t
-  :bind ("C-x C-t" . org-tree-slide-mode))
+  :defer t)
+
+(use-package ox-pandoc
+  :ensure t
+  :defer t)
+
+(use-package org-jira
+  :ensure t
+  :defer t)
+
+(use-package cloc
+  :ensure t
+  :defer t)
+
+(use-package markdown-mode
+  :ensure t
+  :defer t)
+
+(use-package groovy-mode
+  :ensure t
+  :defer t)
+
+(use-package nerd-icons
+  :ensure t
+  :defer t)
+
+(use-package pandoc
+  :ensure t
+  :defer t)
+
+(use-package obsidian
+  :ensure t
+  :defer t)
+
+;; (use-package easysession
+;;   :ensure t
+;;   :defer t)
 
 (setq-default fill-column 80)
 
@@ -175,6 +225,7 @@
 
 (use-package treemacs
   :ensure t
+  :bind (("C-t s" . treemacs-switch-workspace) ("C-t h" . treemacs))
   :hook
   ((after-init . treemacs) (treemacs . treemacs-follow-project-mode))
   :custom
@@ -221,12 +272,6 @@
   :init
   (dirvish-override-dired-mode))
 
-(defun kill-selected-text ()
-  (interactive)
-  (if (region-active-p)
-      (call-interactively 'kill-region)
-    (call-interactively 'kill-line)))
-
 ;; Very neat company mode config taken from here
 ;; https://www.reddit.com/r/emacs/comments/8z4jcs/tip_how_to_integrate_company_as_completion/
 (use-package company
@@ -257,17 +302,22 @@
 
 (use-package rust-mode
   :ensure t
-  :defer t)
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.rs\\" . rust-mode)))
 
 (use-package yaml-mode
   :ensure t
-  :defer t)
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.yaml\\" . yaml-mode)))
 
 (use-package slime
   :ensure t
   :defer t
   :custom
-  (inferior-lisp-program "sbcl"))
+  (inferior-lisp-program "sbcl")
+  (add-to-list 'auto-mode-alist '("\\.lisp\\" . slime)))
 
 (use-package lsp-mode
   :ensure t
@@ -278,7 +328,14 @@
 
 (use-package typescript-mode
   :ensure t
-  :defer t)
+  :defer t
+  :custom
+  (add-to-list 'auto-mode-alist '("\\.ts\\" . typescript-mode)))
+
+;; TODO: Check to see if org-scratch exists, otherwise compile
+(defun pmh/compile-org-scratch ()
+  (interactive)
+  (byte-compile-file "./org-scratch.el"))
 
 (load "org-scratch.elc")
 (redraw-display)
