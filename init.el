@@ -20,7 +20,7 @@
 ;; When switching buffers, do not open a new window
 (set-window-dedicated-p (selected-window) nil)
 
-;; Adjust the size of the window 
+;; Adjust the size of the frame 
 (add-to-list 'default-frame-alist '(width  . 155))
 (add-to-list 'default-frame-alist '(height . 50))
 
@@ -28,21 +28,29 @@
 (set-face-attribute 'mode-line-buffer-id nil :foreground "white")
 
 (set-default 'truncate-lines nil)
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
 ;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(scroll-bar-mode 0)
 
-(if (eq system-type 'darwin)
+(if (display-graphic-p)
+    (scroll-bar-mode 0))
+
+(setq shell-file-name
+      (if (eq system-type 'darwin)
+          "/bin/zsh"
+        (if (eq system-type 'windows-nt)
+            "C:/Program Files/nu/bin/nu.exe"
+          "/bin/bash")))
+
+;; Swap the meta key from OPT to CMD on macOS
+(if (and (eq system-type 'darwin) (display-graphic-p))
     (progn
-      (setq shell-file-name "/bin/zsh")
-      (setq mac-command-modifier 'meta)
-      (setq mac-option-modifier 'super)
-	  (menu-bar-mode t))
-  (if (eq system-type 'windows-nt)
-      (setq shell-file-name "C:/Program Files/nu/bin/nu.exe")))
+      (setq mac-command-modifier 'meta
+            mac-option-modifier 'super)
+	  (menu-bar-mode (display-graphic-p))))
 
 (setq-default default-directory "~/")
 
@@ -224,6 +232,7 @@
   (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 (use-package treemacs
+  :if (display-graphic-p)
   :ensure t
   :bind (("C-t s" . treemacs-switch-workspace) ("C-t h" . treemacs))
   :hook
@@ -232,19 +241,21 @@
   (treemacs-show-hidden-files nil))
 
 (use-package treemacs-nerd-icons
+  :if (display-graphic-p)
   :ensure t
+  :after treemacs
   :config
   (treemacs-load-theme "nerd-icons"))
 
 (use-package alert
   :ensure t
   :defer t
-  :config
-  (setq alert-default-style 'notifier))
+  :custom
+  (alert-default-style 'notifier))
 
 (use-package spacious-padding
   :ensure t
-  :hook (emacs-startup . #'spacious-padding))
+  :hook (after-init . 'spacious-padding))
 
 (use-package dashboard
   :ensure t
@@ -333,9 +344,10 @@
   (add-to-list 'auto-mode-alist '("\\.ts\\" . typescript-mode)))
 
 ;; TODO: Check to see if org-scratch exists, otherwise compile
-(defun pmh/compile-org-scratch ()
-  (interactive)
-  (byte-compile-file "./org-scratch.el"))
+;;(defun pmh/compile-org-scratch ()
+;;  (interactive)
+;;  (byte-compile-file "./org-scratch.el"))
 
-(load "org-scratch.elc")
-(redraw-display)
+;; (load "org-scratch.elc")
+
+
