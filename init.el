@@ -138,7 +138,7 @@
   ((org-mode . auto-fill-mode) (org-mode . org-modern-mode))
   :custom
   (org-directory
-   (if (eq system-type 'darwin)
+   (if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
 	   "~/Documents/org"
 	 (if (eq system-type 'windows-nt)
 		 "~/iCloudDrive/Documents/org")))
@@ -351,4 +351,4 @@
 
 ;; (load "org-scratch.elc")
 
-
+(redraw-display)
