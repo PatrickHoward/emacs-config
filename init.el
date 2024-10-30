@@ -31,7 +31,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-;; Hide the UI, unless we're on MacOS since the global menu is already out of the way
+;; Hide the UI
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 
@@ -45,12 +45,13 @@
             "C:/Program Files/nu/bin/nu.exe"
           "/bin/bash")))
 
-;; Swap the meta key from OPT to CMD on macOS
+;; If we're on macOS, swap the meta key from OPT to CMD and reenable
+;; menu-bar-mode since the global menu is already out of the way
 (if (and (eq system-type 'darwin) (display-graphic-p))
     (progn
       (setq mac-command-modifier 'meta
             mac-option-modifier 'super)
-	  (menu-bar-mode (display-graphic-p))))
+	  (menu-bar-mode t)))
 
 (setq-default default-directory "~/")
 
