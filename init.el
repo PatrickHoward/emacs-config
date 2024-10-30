@@ -1,3 +1,8 @@
+(custom-set-variables
+  '(custom-enabled-themes '(misterioso))
+  '(custom-safe-themes
+   '("8b148cf8154d34917dfc794b5d0fe65f21e9155977a36a5985f89c09a9669aa0" "6f96a9ece5fdd0d3e04daea6aa63e13be26b48717820aa7b5889c602764cf23a" "9724b3abaf500b227faa036dcf817abed9764802835ba6e8d1e475c877205157" default)))
+
 ;; Common keybinds, some of these are modified
 ;; to account for me messing up frequent ones 
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
