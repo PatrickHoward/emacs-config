@@ -4,7 +4,7 @@ Config setup inspired by [[xhttps://www.reddit.com/r/emacs/comments/phb5sw/comme
 
 ** Setup
 Add this to your startup Emacs config (be that `.emacs` or `~/.config/emacs/`:
-#+BEGIN_SRC
+#+BEGIN_SRC elisp
 (setq load-path (append load-path
     (list (expand-file-name "~/Repos/emacs-config"))
 ))
