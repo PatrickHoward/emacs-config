@@ -1,7 +1,10 @@
 (custom-set-variables
   '(custom-enabled-themes '(misterioso))
   '(custom-safe-themes
-   '("8b148cf8154d34917dfc794b5d0fe65f21e9155977a36a5985f89c09a9669aa0" "6f96a9ece5fdd0d3e04daea6aa63e13be26b48717820aa7b5889c602764cf23a" "9724b3abaf500b227faa036dcf817abed9764802835ba6e8d1e475c877205157" default)))
+	'("8b148cf8154d34917dfc794b5d0fe65f21e9155977a36a5985f89c09a9669aa0"
+	  "6f96a9ece5fdd0d3e04daea6aa63e13be26b48717820aa7b5889c602764cf23a"
+	  "9724b3abaf500b227faa036dcf817abed9764802835ba6e8d1e475c877205157"
+	  default)))
 
 ;; Common keybinds, some of these are modified
 ;; to account for me messing up frequent ones 
@@ -60,7 +63,8 @@
 
 (setq-default default-directory "~/")
 
-;; Copypasta'd from https://emacs.stackexchange.com/questions/17210/how-to-place-all-auto-save-files-in-a-directory
+;; Copypasta'd from
+;; https://emacs.stackexchange.com/questions/17210/how-to-place-all-auto-save-files-in-a-directory
 ;; TODO: Though this doesn't seem to work?
 (setq
    backup-by-copying t      ; don't clobber symlinks
@@ -123,7 +127,7 @@
 	(if (not (equal active-theme pmh/current-theme))
 		(load-theme pmh/current-theme))))
 
-(run-with-timer 0 1800 'pmh/update-theme-based-on-time)
+(run-with-timer 0 900 'pmh/update-theme-based-on-time)
 
 (use-package doom-modeline
   :ensure t
@@ -320,34 +324,35 @@
 (use-package rust-mode
   :ensure t
   :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.rs\\" . rust-mode)))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode)))
 
 (use-package yaml-mode
   :ensure t
   :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.yaml\\" . yaml-mode)))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
 
 (use-package slime
   :ensure t
   :defer t
   :custom
   (inferior-lisp-program "sbcl")
-  (add-to-list 'auto-mode-alist '("\\.lisp\\" . slime)))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.lisp\\'" . slime)))
 
 (use-package lsp-mode
   :ensure t
   :defer t
   :bind ("M-RET" . lsp-execute-code-action)
-  :custom
-  (add-to-list 'auto-mode-alist '("\\.cs\\" . lsp)))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.cs\\'" . lsp)))
 
 (use-package typescript-mode
   :ensure t
   :defer t
-  :custom
-  (add-to-list 'auto-mode-alist '("\\.ts\\" . typescript-mode)))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode)))
 
 ;; TODO: Check to see if org-scratch exists, otherwise compile
 ;;(defun pmh/compile-org-scratch ()
