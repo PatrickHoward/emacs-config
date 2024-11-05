@@ -1,6 +1,10 @@
 (custom-set-variables
-  '(custom-enabled-themes '(misterioso))
-  '(custom-safe-themes
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(misterioso))
+ '(custom-safe-themes
    '("8b148cf8154d34917dfc794b5d0fe65f21e9155977a36a5985f89c09a9669aa0" "6f96a9ece5fdd0d3e04daea6aa63e13be26b48717820aa7b5889c602764cf23a" "9724b3abaf500b227faa036dcf817abed9764802835ba6e8d1e475c877205157" default)))
 
 ;; Common keybinds, some of these are modified
@@ -13,6 +17,8 @@
 (global-set-key (kbd "C-x C-r") 'revert-buffer)
 (global-set-key (kbd "C-t") nil)
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+(global-set-key (kbd "M-`") nil)
+(global-set-key [mouse-2] nil)
 
 (defun pmh/kill-selected-text ()
   (interactive)
@@ -121,7 +127,7 @@
 			light-theme
 			dark-theme))
 	(if (not (equal active-theme pmh/current-theme))
-		(load-theme pmh/current-theme))))
+		(load-theme pmh/current-theme t nil))))
 
 (run-with-timer 0 1800 'pmh/update-theme-based-on-time)
 
@@ -153,7 +159,7 @@
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
   (org-insert-heading-respect-content t)
-  (org-agenda-files (list (concat org-directory "/todo.org")))
+  (org-agenda-files (list org-directory))
   (org-image-actual-width 120))
 
 (use-package org-tree-slide
