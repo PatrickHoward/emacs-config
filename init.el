@@ -160,7 +160,12 @@
   (org-pretty-entities t)
   (org-insert-heading-respect-content t)
   (org-agenda-files (list org-directory))
-  (org-image-actual-width 120))
+  (org-image-actual-width 120)
+  (epa-pinentry-mode 'loopback))
+
+(defun org-disable-autosave-for-file ()
+  (interactive)
+  (insert "# -*- buffer-auto-save-file-name: nil; -*-"))
 
 (use-package org-tree-slide
   :ensure t
