@@ -1,11 +1,4 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(misterioso))
- '(custom-safe-themes
-   '("8b148cf8154d34917dfc794b5d0fe65f21e9155977a36a5985f89c09a9669aa0" "6f96a9ece5fdd0d3e04daea6aa63e13be26b48717820aa7b5889c602764cf23a" "9724b3abaf500b227faa036dcf817abed9764802835ba6e8d1e475c877205157" default)))
+
 
 ;; Common keybinds, some of these are modified
 ;; to account for me messing up frequent ones 
@@ -111,21 +104,26 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(setq custom-enabled-themes '(misterioso))
+
 ;; Checks the hour every 30 mins and sees if we should use
 ;; daytime or nighttime
 (setq pmh/current-theme nil)
+
+(setq pmh/light-theme 'doom-bluloco-light)
+(setq pmh/dark-theme 'doom-bluloco-dark)
+(setq pmh/daytime-hours '(6 16))
+
 (defun pmh/update-theme-based-on-time ()
   (interactive)
-  (let ((daytime-start 6)
-	  (daytime-end 18)
-	  (light-theme 'doom-bluloco-light)
-	  (dark-theme 'doom-bluloco-dark)
+  (let ((daytime-start (car pmh/daytime-hours))
+	  (daytime-end (car (cdr pmh/daytime-hours)))
 	  (active-theme pmh/current-theme)
 	  (hour (string-to-number (substring (current-time-string) 11 13))))
 	(setq pmh/current-theme
 		  (if (member hour (number-sequence daytime-start daytime-end))
-			light-theme
-			dark-theme))
+			pmh/light-theme
+			pmh/dark-theme))
 	(if (not (equal active-theme pmh/current-theme))
 		(load-theme pmh/current-theme t nil))))
 
@@ -161,7 +159,7 @@
   (org-insert-heading-respect-content t)
   (org-agenda-files (list org-directory))
   (org-image-actual-width 120)
-  (epa-pinentry-mode 'loopback))
+  (epg-pinentry-mode 'loopback nil nil))
 
 (defun org-disable-autosave-for-file ()
   (interactive)
@@ -282,7 +280,15 @@
   (dashboard-center-content t)
   (dashboard-vertically-center-content t)
   (dashboard-display-icons-p t)
+  (dashboard-navigation-cycle t)
+  (dashboard-week-agenda t)
+  (dashboard-filter-agenda-entry 'dashboard-filter-agenda-by-todo)
   (dashboard-icon-type 'nerd-icons)
+  (dashboard-items '((recents . 5)
+                     (bookmarks . 5)
+                     (projects . 4)
+                     (agenda . 10)))
+  
   :config
   (dashboard-setup-startup-hook)
   (dashboard-open))
@@ -360,11 +366,36 @@
   :custom
   (add-to-list 'auto-mode-alist '("\\.ts\\" . typescript-mode)))
 
-;; TODO: Check to see if org-scratch exists, otherwise compile
-;;(defun pmh/compile-org-scratch ()
-;;  (interactive)
-;;  (byte-compile-file "./org-scratch.el"))
-
-;; (load "org-scratch.elc")
+(use-package nushell-mode
+  :ensure t
+  :defer t)
 
 (redraw-display)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(fringe ((t :background "#2d3743")))
+ '(header-line ((t :box (:line-width 4 :color "#808080" :style nil))))
+ '(header-line-highlight ((t :box (:color "#e1e1e0"))))
+ '(keycast-key ((t)))
+ '(line-number ((t :background "#2d3743")))
+ '(mode-line ((t :box (:line-width 6 :color "#212931" :style nil))))
+ '(mode-line-active ((t :box (:line-width 6 :color "#212931" :style nil))))
+ '(mode-line-highlight ((t :box (:color "#e1e1e0"))))
+ '(mode-line-inactive ((t :box (:line-width 6 :color "#878787" :style nil))))
+ '(tab-bar-tab ((t :box (:line-width 4 :color "grey85" :style nil))))
+ '(tab-bar-tab-inactive ((t :box (:line-width 4 :color "grey75" :style nil))))
+ '(tab-line-tab ((t)))
+ '(tab-line-tab-active ((t)))
+ '(tab-line-tab-inactive ((t)))
+ '(vertical-border ((t :background "#2d3743" :foreground "#2d3743")))
+ '(window-divider ((t (:background "#2d3743" :foreground "#2d3743"))))
+ '(window-divider-first-pixel ((t (:background "#2d3743" :foreground "#2d3743"))))
+ '(window-divider-last-pixel ((t (:background "#2d3743" :foreground "#2d3743")))))
+
+(custom-set-variables
+ '(package-selected-packages
+   '(nushell-mode yaml-mode wfnames websocket vertico-posframe typescript-mode treemacs-tab-bar treemacs-nerd-icons theme-changer swift-mode spacious-padding slime-company rust-mode rebecca-theme popup pandoc ox-pandoc org-tree-slide org-roam org-noter org-modern org-jira obsidian oauth2 nu-mode nov nix-mode nix-buffer magit lsp-mode kanban kanagawa-theme indent-bars highlight-indent-guides groovy-mode emojify easysession doom-themes doom-modeline dirvish dired-git dashboard csv-mode company-irony company-box cloc clang-format circe astro-ts-mode anki-mode alert)))
