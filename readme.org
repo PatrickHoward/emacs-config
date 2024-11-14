@@ -1,5 +1,8 @@
 * Patrick's emacs config
 
+* Deprecating this in favor of a monorepo of configs
+[[https://github.com/PatrickHoward/config][at this github repo]]
+
 Config setup inspired by [[xhttps://www.reddit.com/r/emacs/comments/phb5sw/comment/hbhzwpo/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button][this cool guy]]. 
 
 ** Setup

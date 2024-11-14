@@ -109,6 +109,7 @@
 ;; daytime or nighttime
 (setq pmh/current-theme nil)
 
+(setq pmh/terminal-theme 'misterioso)
 (setq pmh/light-theme 'doom-bluloco-light)
 (setq pmh/dark-theme 'doom-bluloco-dark)
 (setq pmh/daytime-hours '(6 16))
@@ -126,7 +127,9 @@
 	(if (not (equal active-theme pmh/current-theme))
 		(load-theme pmh/current-theme t nil))))
 
-(run-with-timer 0 900 'pmh/update-theme-based-on-time)
+(if (display-graphic-p)
+    (run-with-timer 0 1800 'pmh/update-theme-based-on-time)
+  (load-theme pmh/terminal-theme))
 
 (use-package doom-modeline
   :ensure t
